@@ -1,4 +1,6 @@
-import { app, BrowserWindow } from 'electron';
+import { app, Menu, BrowserWindow } from 'electron';
+
+const menuTemplate = require('./js/menu-template');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -12,15 +14,15 @@ let mainWindow;
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1920,
-    height: 1080,
+    width: 1920 / 2,
+    height: 1080 / 2,
   });
 
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+  mainWindow.loadURL(`file://${__dirname}/index2.html`);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
@@ -34,7 +36,11 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  const menu = Menu.buildFromTemplate(menuTemplate.template);
+  Menu.setApplicationMenu(menu);
+  createWindow();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
