@@ -3,7 +3,7 @@
 // https://github.com/Azgaar/Fantasy-Map-Generator
 // GNU General Public License v3.0
 
-"use strict;"
+// "use strict;"
 fantasyMap();
 function fantasyMap() {
   // Version control
@@ -27,6 +27,7 @@ function fantasyMap() {
     trails = routes.append("g").attr("id", "trails").attr("data-type", "land"),
     rivers = viewbox.append("g").attr("id", "rivers"),
     terrain = viewbox.append("g").attr("id", "terrain"),
+    monsters = viewbox.append("g").attr("id", "monsters"),
     cults = viewbox.append("g").attr("id", "cults"),
     regions = viewbox.append("g").attr("id", "regions"),
     borders = viewbox.append("g").attr("id", "borders"),
@@ -52,6 +53,9 @@ function fantasyMap() {
   terrain.append("g").attr("id", "mounts");
   terrain.append("g").attr("id", "swamps");
   terrain.append("g").attr("id", "forests");
+  monsters.append("g").attr("id", "dragon"); 
+  monsters.append("g").attr("id", "troll");
+  monsters.append("g").attr("id", "mermaid");
 
   // append ocean pattern
   oceanPattern.append("rect").attr("fill", "url(#oceanic)").attr("stroke", "none");
@@ -2830,6 +2834,106 @@ function fantasyMap() {
     });
   }
 
+  function editMonsterIcon() {
+    if (customization) return;
+    if (elSelected) if (this.isSameNode(elSelected.node())) return;
+
+    unselect();
+    closeDialogs("#reliefEditor, .stable");
+    elSelected = d3.select(this).raise().call(d3.drag().on("start", elementDrag));
+    const group = elSelected.node().parentNode.id;
+    reliefGroup.value = group;
+
+    // relief editor dialog box preferences
+    $("#reliefEditor").dialog({
+      title: "Edit monster icon",
+      minHeight: 30, width: "auto", resizable: false,
+      position: { my: "center top+40", at: "top", of: d3.event },
+      close: unselect
+    });
+
+    if (modules.editReliefIcon) { return; }
+    modules.editReliefIcon = true;
+
+    $("#reliefGroups").click(function () {
+      $("#reliefEditor > button").not(this).toggle();
+      $("#reliefGroupsSelection").toggle();
+    });
+
+    // changes icon to different icon based on group
+    $("#reliefGroup").change(function () {
+      const type = this.value;
+      const bbox = elSelected.node().getBBox();
+      const cx = bbox.x;
+      const cy = bbox.y + bbox.height / 2;
+      const cell = diagram.find(cx, cy).index;
+      const height = cell !== undefined ? cells[cell].height : 0.5;
+      elSelected.remove();
+      elSelected = addReliefIcon(height, type, cx, cy);
+      elSelected.call(d3.drag().on("start", elementDrag));
+    });
+
+    // copies icon and places on map
+    $("#reliefCopy").click(function () {
+      const group = d3.select(elSelected.node().parentNode);
+      const copy = elSelected.node().cloneNode(true);
+      const tr = parseTransform(copy.getAttribute("transform"));
+      const shift = 10 / Math.sqrt(scale);
+      let transform = "translate(" + rn(tr[0] - shift, 1) + "," + rn(tr[1] - shift, 1) + ")";
+      for (let i = 2; group.selectAll("[transform='" + transform + "']").size() > 0; i++) {
+        transform = "translate(" + rn(tr[0] - shift * i, 1) + "," + rn(tr[1] - shift * i, 1) + ")";
+      }
+      copy.setAttribute("transform", transform);
+      group.node().insertBefore(copy, null);
+      copy.addEventListener("click", editReliefIcon);
+    });
+
+    $("#reliefAddfromEditor").click(function () {
+      clickToAdd(); // to load on click event function
+      $("#addRelief").click();
+    });
+
+    // removes all icons of this group "monsters" from the map completely
+    $("#reliefRemoveGroup").click(function () {
+      const group = d3.select(elSelected.node().parentNode);
+      const count = group.selectAll("*").size();
+      if (count < 2) {
+        group.selectAll("*").remove();
+        $("#labelEditor").dialog("close");
+        return;
+      }
+      const message = "Are you sure you want to remove all '" + reliefGroup.value + "' icons (" + count + ")?";
+      alertMessage.innerHTML = message;
+      $("#alert").dialog({
+        resizable: false, title: "Remove all icons within group",
+        buttons: {
+          Remove: function () {
+            $(this).dialog("close");
+            group.selectAll("*").remove();
+            $("#reliefEditor").dialog("close");
+          },
+          Cancel: function () { $(this).dialog("close"); }
+        }
+      });
+    });
+
+    // removes single monster icon from map
+    $("#reliefRemove").click(function () {
+      alertMessage.innerHTML = `Are you sure you want to remove the icon?`;
+      $("#alert").dialog({
+        resizable: false, title: "Remove relief icon",
+        buttons: {
+          Remove: function () {
+            $(this).dialog("close");
+            elSelected.remove();
+            $("#reliefEditor").dialog("close");
+          },
+          Cancel: function () { $(this).dialog("close"); }
+        }
+      })
+    });
+  }
+
   function editReliefIcon() {
     if (customization) return;
     if (elSelected) if (this.isSameNode(elSelected.node())) return;
@@ -4553,6 +4657,25 @@ function fantasyMap() {
     } else {
       terrs.selectAll("path").remove();
     }
+  }
+
+  // Draw the Monsters
+  function drawMonsters(){
+    // if (height >= 0.21 && height < 0.22 && !land[i].river && swampCount < +swampinessInput.value && land[i].used != 1) {
+      const g = monsters.append("g");
+    //   swampCount++;
+    //   land[i].used = 1;
+    //   let swamp = drawSwamp(x, y);
+    //   land[i].neighbors.forEach(function (e) {
+    //     if (cells[e].height >= 0.2 && cells[e].height < 0.3 && !cells[e].river && cells[e].used != 1) {
+    //       cells[e].used = 1;
+    //       swamp += drawSwamp(cells[e].data[0], cells[e].data[1]);
+    //     }
+    //   })
+    //   g.append("path").attr("d", round(swamp, 1));
+    // }
+
+    g.append("path").attr('d');
   }
 
   // Draw the Relief (need to create more beautiness)
