@@ -4799,6 +4799,9 @@ function fantasyMap() {
       const swamp = drawSwamp(cx, cy);
       g.append("path").attr("d", round(swamp, 1));
     }
+    if(type === "monsters") {
+      //TODO: move swamp method here, 
+    }
     if (type === "forests") {
       const rnd = Math.random();
       const h = rnd * 0.4 + 0.6;
@@ -5962,6 +5965,7 @@ function fantasyMap() {
     viewbox.on("touchmove mousemove", moved);
     overlay.selectAll("*").call(d3.drag().on("start", elementDrag));
     terrain.selectAll("g").selectAll("g").on("click", editReliefIcon);
+    monsters.selectAll("g").selectAll("g").on("click", editMonsterIcon); 
     labels.selectAll("text").on("click", editLabel);
     icons.selectAll("circle, path, use").on("click", editIcon);
     burgLabels.selectAll("text").on("click", editBurg);
