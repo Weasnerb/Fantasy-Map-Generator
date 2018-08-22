@@ -1,49 +1,46 @@
 const { dialog } = require('electron');
-const fs = require('fs');
 
-const content = 'I am content';
 
-exports.template = [{
-  label: 'File',
-  submenu: [{
-    label: 'Save as',
+exports.getTemplate = function (win) {
+  return [{
+    label: 'File',
     submenu: [{
-      label: 'PNG',
+      label: 'Save as',
+      submenu: [{
+        label: 'PNG',
+        click: () => {
+          win.webContents.executeJavaScript('script.saveAsImage(\'png\');');
+        },
+      }, {
+        label: 'SVG',
+        click: () => {
+          win.webContents.executeJavaScript('script.saveAsImage(\'svg\');');
+        },
+      }, {
+        label: 'Map',
+        click: () => {
+          win.webContents.executeJavaScript('script.saveMap();');
+        },
+      }],
+    }, {
+      label: 'Load File',
       click: () => {
-                // console.log('Saved as PNG');
-        dialog.showSaveDialog(
-                    { filters: [{ name: 'text', extensions: 'txt' }] }, (fileName) => {
-                      if (fileName === undefined) return;
-                      fs.writeFile(fileName, content.demoContent, (err) => {
-                        if (err) {
-                          alert(`An error ocurred creating the file ${err.message}`);
-                        }
-                      });
-                      dialog.showMessageBox({ message: `The file saved to - ${fileName}`,
-                        buttons: ['Okay'] });
-                      console.log(fileName);
-                    });
+        // win.webContents.executeJavaScript('script.loadFile();');
+        // win.webContents.executeJavaScript('script.loadMap();', (result) => {
+        //   console.log(result);
+        // });
+        // console.log('Loadbtn clicked');
+        // $('mapToLoad').click();
+        win.webContents.executeJavaScript('console.log(\'HiHI\'); var ele = document.getElementById(\'mapToLoad\'); console.log(ele); ele.click(); console.log(\'HiHI\');', true);
       },
-    }, {
-      label: 'SVG',
-      click: () => {},
-    }, {
-      label: 'Map',
-      click: () => {},
     }],
   }, {
-    label: 'Load File',
+    label: 'Help',
     submenu: [{
-      label: 'MAP',
-      click: () => {},
+      label: 'About',
+      click: () => {
+        dialog.showMessageBox({ message: 'I am About', buttons: ['OK'] });
+      },
     }],
-  }],
-}, {
-  label: 'Help',
-  submenu: [{
-    label: 'About',
-    click: () => {
-      dialog.showMessageBox({ message: 'I am About', buttons: ['OK'] });
-    },
-  }],
-}];
+  }];
+};
