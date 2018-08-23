@@ -10,6 +10,8 @@ exports.getTemplate = function (win) {
         win.webContents.executeJavaScript('document.getElementById(\'randomMap\').click();', true);
       },
     }, {
+      type: 'separator',
+    }, {
       label: 'Save as',
       submenu: [{
         label: 'PNG',
@@ -31,6 +33,14 @@ exports.getTemplate = function (win) {
       label: 'Load File',
       click: () => {
         win.webContents.executeJavaScript('document.getElementById(\'mapToLoad\').click();', true);
+      },
+    }],
+  }, {
+    label: 'Edit',
+    submenu: [{
+      label: 'Reset Zoom',
+      click: () => {
+        win.webContents.executeJavaScript('document.getElementById(\'zoomReset\').click();', true);
       },
     }],
   }, {
