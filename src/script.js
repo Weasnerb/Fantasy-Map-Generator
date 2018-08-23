@@ -10,124 +10,124 @@ Object.defineProperty(exports, '__esModule', { value: true });
 // fantasyMap();
 module.exports.fantasyMap = function () {
     // Version control
-    const version = '0.58b';
-    document.title += ` v. ${version}`;
-    console.log(`In fantasy ${document}`);
+  const version = '0.58b';
+  document.title += ` v. ${version}`;
+  console.log(`In fantasy ${document}`);
 
     // Declare variables
-    let svg = d3.select('svg'),
-        defs = svg.select('#deftemp'),
-        viewbox = svg.append('g').attr('id', 'viewbox'),
-        ocean = viewbox.append('g').attr('id', 'ocean'),
-        lakes = viewbox.append('g').attr('id', 'lakes'),
-        oceanLayers = ocean.append('g').attr('id', 'oceanLayers'),
-        oceanPattern = ocean.append('g').attr('id', 'oceanPattern'),
-        landmass = viewbox.append('g').attr('id', 'landmass'),
-        terrs = viewbox.append('g').attr('id', 'terrs'),
-        grid = viewbox.append('g').attr('id', 'grid'),
-        overlay = viewbox.append('g').attr('id', 'overlay'),
-        routes = viewbox.append('g').attr('id', 'routes'),
-        roads = routes.append('g').attr('id', 'roads').attr('data-type', 'land'),
-        trails = routes.append('g').attr('id', 'trails').attr('data-type', 'land'),
-        rivers = viewbox.append('g').attr('id', 'rivers'),
-        terrain = viewbox.append('g').attr('id', 'terrain'),
-        cults = viewbox.append('g').attr('id', 'cults'),
-        regions = viewbox.append('g').attr('id', 'regions'),
-        borders = viewbox.append('g').attr('id', 'borders'),
-        stateBorders = borders.append('g').attr('id', 'stateBorders'),
-        neutralBorders = borders.append('g').attr('id', 'neutralBorders'),
-        coastline = viewbox.append('g').attr('id', 'coastline'),
-        searoutes = routes.append('g').attr('id', 'searoutes').attr('data-type', 'sea'),
-        labels = viewbox.append('g').attr('id', 'labels'),
-        burgLabels = labels.append('g').attr('id', 'burgLabels'),
-        icons = viewbox.append('g').attr('id', 'icons'),
-        burgIcons = icons.append('g').attr('id', 'burgIcons'),
-        ruler = viewbox.append('g').attr('id', 'ruler'),
-        debug = viewbox.append('g').attr('id', 'debug');
+  let svg = d3.select('svg'),
+    defs = svg.select('#deftemp'),
+    viewbox = svg.append('g').attr('id', 'viewbox'),
+    ocean = viewbox.append('g').attr('id', 'ocean'),
+    lakes = viewbox.append('g').attr('id', 'lakes'),
+    oceanLayers = ocean.append('g').attr('id', 'oceanLayers'),
+    oceanPattern = ocean.append('g').attr('id', 'oceanPattern'),
+    landmass = viewbox.append('g').attr('id', 'landmass'),
+    terrs = viewbox.append('g').attr('id', 'terrs'),
+    grid = viewbox.append('g').attr('id', 'grid'),
+    overlay = viewbox.append('g').attr('id', 'overlay'),
+    routes = viewbox.append('g').attr('id', 'routes'),
+    roads = routes.append('g').attr('id', 'roads').attr('data-type', 'land'),
+    trails = routes.append('g').attr('id', 'trails').attr('data-type', 'land'),
+    rivers = viewbox.append('g').attr('id', 'rivers'),
+    terrain = viewbox.append('g').attr('id', 'terrain'),
+    cults = viewbox.append('g').attr('id', 'cults'),
+    regions = viewbox.append('g').attr('id', 'regions'),
+    borders = viewbox.append('g').attr('id', 'borders'),
+    stateBorders = borders.append('g').attr('id', 'stateBorders'),
+    neutralBorders = borders.append('g').attr('id', 'neutralBorders'),
+    coastline = viewbox.append('g').attr('id', 'coastline'),
+    searoutes = routes.append('g').attr('id', 'searoutes').attr('data-type', 'sea'),
+    labels = viewbox.append('g').attr('id', 'labels'),
+    burgLabels = labels.append('g').attr('id', 'burgLabels'),
+    icons = viewbox.append('g').attr('id', 'icons'),
+    burgIcons = icons.append('g').attr('id', 'burgIcons'),
+    ruler = viewbox.append('g').attr('id', 'ruler'),
+    debug = viewbox.append('g').attr('id', 'debug');
 
-    labels.append('g').attr('id', 'countries');
-    burgIcons.append('g').attr('id', 'capitals');
-    burgLabels.append('g').attr('id', 'capitals');
-    burgIcons.append('g').attr('id', 'towns');
-    burgLabels.append('g').attr('id', 'towns');
-    icons.append('g').attr('id', 'capital-anchors');
-    icons.append('g').attr('id', 'town-anchors');
-    terrain.append('g').attr('id', 'hills');
-    terrain.append('g').attr('id', 'mounts');
-    terrain.append('g').attr('id', 'swamps');
-    terrain.append('g').attr('id', 'forests');
+  labels.append('g').attr('id', 'countries');
+  burgIcons.append('g').attr('id', 'capitals');
+  burgLabels.append('g').attr('id', 'capitals');
+  burgIcons.append('g').attr('id', 'towns');
+  burgLabels.append('g').attr('id', 'towns');
+  icons.append('g').attr('id', 'capital-anchors');
+  icons.append('g').attr('id', 'town-anchors');
+  terrain.append('g').attr('id', 'hills');
+  terrain.append('g').attr('id', 'mounts');
+  terrain.append('g').attr('id', 'swamps');
+  terrain.append('g').attr('id', 'forests');
 
     // append ocean pattern
-    oceanPattern.append('rect').attr('fill', 'url(#oceanic)').attr('stroke', 'none');
-    oceanLayers.append('rect').attr('id', 'oceanBase');
+  oceanPattern.append('rect').attr('fill', 'url(#oceanic)').attr('stroke', 'none');
+  oceanLayers.append('rect').attr('id', 'oceanBase');
 
     // main data variables
-    let voronoi,
-        diagram,
-        polygons,
-        points = [],
-        sample;
+  let voronoi,
+    diagram,
+    polygons,
+    points = [],
+    sample;
     // Common variables
-    let modules = {},
-        customization = 0,
-        history = [],
-        historyStage = 0,
-        elSelected,
-        autoResize = true,
-        graphSize,
-        cells = [],
-        land = [],
-        riversData = [],
-        manors = [],
-        states = [],
-        features = [],
-        queue = [],
-        fonts = ['Almendra+SC', 'Georgia', 'Times+New+Roman', 'Comic+Sans+MS', 'Lucida+Sans+Unicode', 'Courier+New'];
+  let modules = {},
+    customization = 0,
+    history = [],
+    historyStage = 0,
+    elSelected,
+    autoResize = true,
+    graphSize,
+    cells = [],
+    land = [],
+    riversData = [],
+    manors = [],
+    states = [],
+    features = [],
+    queue = [],
+    fonts = ['Almendra+SC', 'Georgia', 'Times+New+Roman', 'Comic+Sans+MS', 'Lucida+Sans+Unicode', 'Courier+New'];
 
     // Cultures-related data
-    let defaultCultures = [],
-        cultures = [],
-        chain = {},
-        nameBases = [],
-        nameBase = [],
-        cultureTree;
-    const vowels = 'aeiouy';
+  let defaultCultures = [],
+    cultures = [],
+    chain = {},
+    nameBases = [],
+    nameBase = [],
+    cultureTree;
+  const vowels = 'aeiouy';
 
     // canvas element for raster images
-    let canvas = document.getElementById('canvas'),
-        ctx = canvas.getContext('2d');
+  let canvas = document.getElementById('canvas'),
+    ctx = canvas.getContext('2d');
 
     // Color schemes
-    let color = d3.scaleSequential(d3.interpolateSpectral),
-        colors8 = d3.scaleOrdinal(d3.schemeSet2),
-        colors20 = d3.scaleOrdinal(d3.schemeCategory20);
+  let color = d3.scaleSequential(d3.interpolateSpectral),
+    colors8 = d3.scaleOrdinal(d3.schemeSet2),
+    colors20 = d3.scaleOrdinal(d3.schemeCategory20);
 
     // D3 drag and zoom behavior
-    let scale = 1,
-        viewX = 0,
-        viewY = 0;
-    const zoom = d3.zoom().scaleExtent([1, 20]).on('zoom', zoomed);
-    svg.call(zoom);
+  let scale = 1,
+    viewX = 0,
+    viewY = 0;
+  const zoom = d3.zoom().scaleExtent([1, 20]).on('zoom', zoomed);
+  svg.call(zoom);
 
     // D3 Line generator variables
-    const lineGen = d3.line().x(d => d.scX).y(d => d.scY).curve(d3.curveCatmullRom);
+  const lineGen = d3.line().x(d => d.scX).y(d => d.scY).curve(d3.curveCatmullRom);
 
-    applyStoredOptions();
-    let graphWidth = +mapWidthInput.value; // voronoi graph extention, should be stable for each map
-    let graphHeight = +mapHeightInput.value;
-    let svgWidth = graphWidth,
-        svgHeight = graphHeight;  // svg canvas resolution, can vary for each map
+  applyStoredOptions();
+  let graphWidth = +mapWidthInput.value; // voronoi graph extention, should be stable for each map
+  let graphHeight = +mapHeightInput.value;
+  let svgWidth = graphWidth,
+    svgHeight = graphHeight;  // svg canvas resolution, can vary for each map
 
     // toggle off loading screen and on menus
     // module.exports.loadingScreen = function () {
-      $('#loading, #initial').remove();
-      svg.style('background-color', '#000000');
-      $('#optionsContainer, #tooltip').show();
-      if (localStorage.getItem('disable_click_arrow_tooltip')) {
-          tooltip.innerHTML = '';
-          tooltip.setAttribute('data-main', '');
-          $('#optionsTrigger').removeClass('glow');
-      }
+  $('#loading, #initial').remove();
+  svg.style('background-color', '#000000');
+  $('#optionsContainer, #tooltip').show();
+  if (localStorage.getItem('disable_click_arrow_tooltip')) {
+    tooltip.innerHTML = '';
+    tooltip.setAttribute('data-main', '');
+    $('#optionsTrigger').removeClass('glow');
+  }
     // };
 
   $('#optionsContainer').draggable({ handle: '.drag-trigger', snap: 'svg', snapMode: 'both' });
@@ -5685,7 +5685,7 @@ module.exports.fantasyMap = function () {
       console.timeEnd('saveAsImage');
       window.setTimeout(() => { window.URL.revokeObjectURL(url); }, 5000);
     });
-  }
+  };
 
   // Code from Kaiido's answer:
   // https://stackoverflow.com/questions/42402584/how-to-use-google-fonts-in-canvas-when-drawing-dom-objects-in-svg
@@ -5775,10 +5775,10 @@ module.exports.fantasyMap = function () {
   };
 
   // module.exports = { saveMap: saveMap() };
-    module.exports.loadMap = function () {
+  module.exports.loadMap = function () {
         // mapToLoad.click();
-        document.getElementById('mapToLoad').click();
-    }
+    document.getElementById('mapToLoad').click();
+  };
 
   // Map Loader based on FileSystem API
   $('#mapToLoad').change(function () {
@@ -5791,13 +5791,13 @@ module.exports.fantasyMap = function () {
   });
 
   module.exports.loadFile = function () {
-        console.time('loadMap');
-        closeDialogs();
-        console.log(this.files);
-        const fileToLoad = this.files[0];
-        this.value = '';
-        uploadFile(fileToLoad);
-  }
+    console.time('loadMap');
+    closeDialogs();
+    console.log(this.files);
+    const fileToLoad = this.files[0];
+    this.value = '';
+    uploadFile(fileToLoad);
+  };
 
   function uploadFile(file, callback) {
     console.time('loadMap');
@@ -5837,7 +5837,7 @@ module.exports.fantasyMap = function () {
     };
     fileReader.readAsText(file, 'UTF-8');
     if (callback) { callback(); }
-  };
+  }
 
   function loadDataFromMap(data) {
     closeDialogs();
@@ -6012,7 +6012,7 @@ module.exports.fantasyMap = function () {
     ruler.selectAll('.linear').selectAll('circle.center').call(d3.drag().on('drag', rulerCenterDrag));
 
     // update data
-    newPoints = [], riversData = [], queue = [], elSelected = '';
+    var newPoints = [], riversData = [], queue = [], elSelected = '';
     points = JSON.parse(data[1]);
     cells = JSON.parse(data[2]);
     land = $.grep(cells, e => (e.height >= 0.2));
@@ -9259,7 +9259,7 @@ module.exports.fantasyMap = function () {
       });
     });
   }
-}
+};
 
 function tip(tip, main) {
   tooltip.innerHTML = tip;
