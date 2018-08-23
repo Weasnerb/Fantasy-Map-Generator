@@ -228,6 +228,7 @@ input[type="number"].editNumber {
 #routeEditor>*,
 #iconEditor>*,
 #reliefEditor>*,
+#monsterEditor>*,
 #burgEditor * {
 	display: inline-block;
 }

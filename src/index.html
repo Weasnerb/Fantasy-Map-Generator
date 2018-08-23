@@ -661,6 +661,21 @@
     <button id="reliefRemove" onmouseover="tip('Remove the relief icon')" class="icon-trash"></button>
   </div>
 
+  <div id="monsterEditor" class="dialog" style="display: none">
+    <button id="monsterGroups" onmouseover="tip('Change monster icon')" class="icon-tags"></button>
+    <div id="monsterGroupsSelection" style="display: none">
+      <select id="monsterGroup" onmouseover="tip('Change monster icon')">
+        <option value="troll" selected>troll</option>
+        <option value="dragon">dragon</option>
+        <option value="mermaid">mermaid</option>
+      </select>
+      <i id="monsterRemoveGroup" onmouseover="tip('Remove all icons within selected group')" class="icon-trash pointer"></i>
+    </div>
+    <button id="monsterCopy" onmouseover="tip('Copy the monster icon')" class="icon-clone"></button>
+    <button id="monsterAddfromEditor" onmouseover="tip('Add monster Icon')" class="icon-plus"></button>
+    <button id="monsterRemove" onmouseover="tip('Remove the monster icon')" class="icon-trash"></button>
+  </div>
+
   <div id="burgEditor" class="dialog" style="display: none">
     <button id="burgGroup" onmouseover="tip('Change Burg Group')" class="icon-tags"></button>
     <div id="burgGroupSection" style="display: none">
