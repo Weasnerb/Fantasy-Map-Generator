@@ -5,10 +5,10 @@
 
 'use strict;';
 
-Object.defineProperty(exports, '__esModule', { value: true });
 
-// fantasyMap();
-module.exports.fantasyMap = function () {
+
+fantasyMap();
+function fantasyMap() {
     // Version control
   const version = '0.58b';
   document.title += ` v. ${version}`;
@@ -5567,7 +5567,8 @@ module.exports.fantasyMap = function () {
   }
 
   // downalod map as SVG or PNG file
-  module.exports.saveAsImage = function (type) {
+  // module.exports.saveAsImage = function (type) {
+  function saveAsImage(type) {
     console.time('saveAsImage');
     // get all used fonts
     const fontsInUse = []; // to store fonts currently in use
@@ -5734,7 +5735,8 @@ module.exports.fantasyMap = function () {
   }
 
   // Save in .map format, based on FileSystem API
-  module.exports.saveMap = function () {
+  // module.exports.saveMap = function () {
+    function saveMap() {
     console.time('saveMap');
     // data convention: 0 - version; 1 - all points; 2 - cells; 3 - manors; 4 - states;
     // 5 - svg; 6 - options (see below); 7 - cultures; 8 - nameBase; 9 - nameBases;
@@ -5774,12 +5776,6 @@ module.exports.fantasyMap = function () {
     window.setTimeout(() => { window.URL.revokeObjectURL(dataURL); }, 4000);
   };
 
-  // module.exports = { saveMap: saveMap() };
-  module.exports.loadMap = function () {
-        // mapToLoad.click();
-    document.getElementById('mapToLoad').click();
-  };
-
   // Map Loader based on FileSystem API
   $('#mapToLoad').change(function () {
     console.time('loadMap');
@@ -5789,15 +5785,6 @@ module.exports.fantasyMap = function () {
     this.value = '';
     uploadFile(fileToLoad);
   });
-
-  module.exports.loadFile = function () {
-    console.time('loadMap');
-    closeDialogs();
-    console.log(this.files);
-    const fileToLoad = this.files[0];
-    this.value = '';
-    uploadFile(fileToLoad);
-  };
 
   function uploadFile(file, callback) {
     console.time('loadMap');

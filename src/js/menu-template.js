@@ -5,33 +5,32 @@ exports.getTemplate = function (win) {
   return [{
     label: 'File',
     submenu: [{
+      label: 'New Map',
+      click: () => {
+        win.webContents.executeJavaScript('document.getElementById(\'randomMap\').click();', true);
+      },
+    }, {
       label: 'Save as',
       submenu: [{
         label: 'PNG',
         click: () => {
-          win.webContents.executeJavaScript('script.saveAsImage(\'png\');');
+          win.webContents.executeJavaScript('document.getElementById(\'savePNG\').click();', true);
         },
       }, {
         label: 'SVG',
         click: () => {
-          win.webContents.executeJavaScript('script.saveAsImage(\'svg\');');
+          win.webContents.executeJavaScript('document.getElementById(\'saveSVG\').click();', true);
         },
       }, {
         label: 'Map',
         click: () => {
-          win.webContents.executeJavaScript('script.saveMap();');
+          win.webContents.executeJavaScript('document.getElementById(\'saveMap\').click();', true);
         },
       }],
     }, {
       label: 'Load File',
       click: () => {
-        // win.webContents.executeJavaScript('script.loadFile();');
-        // win.webContents.executeJavaScript('script.loadMap();', (result) => {
-        //   console.log(result);
-        // });
-        // console.log('Loadbtn clicked');
-        // $('mapToLoad').click();
-        win.webContents.executeJavaScript('console.log(\'HiHI\'); var ele = document.getElementById(\'mapToLoad\'); console.log(ele); ele.click(); console.log(\'HiHI\');', true);
+        win.webContents.executeJavaScript('document.getElementById(\'mapToLoad\').click();', true);
       },
     }],
   }, {
