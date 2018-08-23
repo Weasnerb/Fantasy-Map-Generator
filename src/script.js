@@ -4698,14 +4698,21 @@ function fantasyMap() {
 
         trollCount++;
       }
-
-
-      // mermaid icons
-      // if (height >= 0.21 && height < 0.22 && !land[i].river && swampCount < +swampinessInput.value && land[i].used != 1) {
-      //   // mermaid will be place here
-      // }
-
     }
+
+    let oceanCells = $.grep(cells, function (e) { return e.ctype === -2; });;
+    for (let i = 0; i < oceanCells.length; i++) {
+      const x = oceanCells[i].data[0];
+      const y = oceanCells[i].data[1];
+      if (mermaidCount === 35) {
+        addMonsterIcon("mermaid", x, y);
+        mermaidCount = 0; 
+      }
+
+      mermaidCount++;
+    }
+
+
     monsters.selectAll("g").selectAll("g").on("click", editMonsterIcon);
     console.timeEnd('drawMonsters');
   }
