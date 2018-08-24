@@ -5952,6 +5952,7 @@ function fantasyMap() {
     trails = routes.select("#trails");
     rivers = viewbox.select("#rivers");
     terrain = viewbox.select("#terrain");
+    monsters = viewbox.select("#monsters");
     regions = viewbox.select("#regions");
     borders = viewbox.select("#borders");
     stateBorders = borders.select("#stateBorders");
