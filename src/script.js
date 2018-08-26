@@ -317,6 +317,8 @@ function fantasyMap() {
       lockPrecInput.className = 'icon-lock';
     }
     if (localStorage.getItem('swampiness')) swampinessInput.value = swampinessOutput.value = localStorage.getItem('swampiness');
+    if (localStorage.getItem('landMonster')) landMonsterInput.value = landMonsterOutput.value = localStorage.getItem('landMonster');
+    if (localStorage.getItem('seaMonster')) seaMonsterInput.value = seaMonsterOutput.value = localStorage.getItem('seaMonster');
     if (localStorage.getItem('outlineLayers')) outlineLayersInput.value = localStorage.getItem('outlineLayers');
     if (localStorage.getItem('pngResolution')) {
       pngResolutionInput.value = localStorage.getItem('pngResolution');
@@ -342,6 +344,8 @@ function fantasyMap() {
     });
     neutralInput.value = neutralOutput.value = 200;
     swampinessInput.value = swampinessOutput.value = 10;
+    landMonsterInput.value = landMonsterOutput.value = 10;
+    seaMonsterInput.value = seaMonsterOutput.value = 10;
     outlineLayersInput.value = '-6,-3,-1';
     pngResolutionInput.value = 5;
     pngResolutionOutput.value = '5x';
@@ -421,6 +425,8 @@ function fantasyMap() {
     if (lockCulturesInput.getAttribute('data-locked') == 0) culturesInput.value = culturesOutput.value = rand(5, 10);
     if (lockPrecInput.getAttribute('data-locked') == 0) precInput.value = precOutput.value = rand(10, 25);
     if (lockSwampinessInput.getAttribute('data-locked') == 0) swampinessInput.value = swampinessOutput.value = rand(100);
+    if (lockLandMonsterInput.getAttribute('data-locked') == 0) landMonsterInput.value = landMonsterOutput.value = rand(100);
+    if (lockSeaMonsterInput.getAttribute('data-locked') == 0) seaMonsterInput.value = seaMonsterOutput.value = rand(100);
   }
 
   // Locate points to calculate Voronoi diagram
@@ -4804,9 +4810,9 @@ function fantasyMap() {
       const x = land[i].data[0];
       const y = land[i].data[1];
       const height = land[i].height;
-      if (height >= 0.7 && !land[i].river) {
+      if (height >= 0.7) {
         // dragon icon
-        if (dragonCount === 10) {
+        if (dragonCount === (101 - landMonsterInput.value) && landMonsterInput.value != 0) {
           if (land[i].ctype !== 1) {
             addMonsterIcon("dragon", x, y);
             dragonCount = 0;
@@ -4815,9 +4821,9 @@ function fantasyMap() {
 
         dragonCount++;
 
-      } else if (height > 0.5 && !land[i].river) {
+      } else if (height > 0.2) {
         // troll icon
-        if (trollCount === 10) {
+        if (trollCount === (101 - landMonsterInput.value) && landMonsterInput.value != 0) {
           if (land[i].ctype !== 1) {
             addMonsterIcon("troll", x, y);
             trollCount = 0; 
@@ -4832,7 +4838,7 @@ function fantasyMap() {
     for (let i = 0; i < oceanCells.length; i++) {
       const x = oceanCells[i].data[0];
       const y = oceanCells[i].data[1];
-      if (mermaidCount === 35) {
+      if (mermaidCount === (101 - seaMonsterInput.value) && seaMonsterInput.value != 0) {
         addMonsterIcon("mermaid", x, y);
         mermaidCount = 0; 
       }
@@ -6228,6 +6234,7 @@ function fantasyMap() {
     d3.select('#toggleRivers').classed('buttonoff', rivers.style('display') === 'none');
     d3.select('#toggleOcean').classed('buttonoff', oceanPattern.style('display') === 'none');
     d3.select('#toggleRelief').classed('buttonoff', terrain.style('display') === 'none');
+    d3.select('#toggleMonsters').classed('buttonoff', terrain.style('display') === 'none');
     d3.select('#toggleBorders').classed('buttonoff', borders.style('display') === 'none');
     d3.select('#toggleIcons').classed('buttonoff', icons.style('display') === 'none');
     d3.select('#toggleLabels').classed('buttonoff', labels.style('display') === 'none');
@@ -9213,6 +9220,8 @@ function fantasyMap() {
     if (id === 'culturesInput') { culturesOutput.value = this.value; localStorage.setItem('cultures', this.value); }
     if (id === 'precInput') { precOutput.value = +precInput.value; localStorage.setItem('prec', this.value); }
     if (id === 'swampinessInput') { swampinessOutput.value = this.value; localStorage.setItem('swampiness', this.value); }
+    if (id === 'landMonsterInput') { landMonsterOutput.value = this.value; localStorage.setItem('landMonster', this.value); }
+    if (id === 'seaMonsterInput') { seaMonsterOutput.value = this.value; localStorage.setItem('seaMonster', this.value); }
     if (id === 'outlineLayersInput') { localStorage.setItem('outlineLayers', this.value); }
     if (id === 'pngResolutionInput') { localStorage.setItem('pngResolution', this.value); }
     if (id === 'zoomExtentMin' || id === 'zoomExtentMax') {

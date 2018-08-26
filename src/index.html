@@ -181,6 +181,7 @@
           <li onmouseover="tip('Toggle Countries')" id="toggleCountries">Countries</li>
           <li onmouseover="tip('Toggle Borders')" id="toggleBorders" onclick="$('#borders').fadeToggle()">Borders</li>
           <li onmouseover="tip('Toggle Relief icons')" id="toggleRelief" onclick="$('#terrain').fadeToggle()">Relief</li>
+          <li onmouseover="tip('Toggle Monster icons')" id="toggleMonsters" onclick="$('#monsters').fadeToggle()">Monsters</li>
           <li onmouseover="tip('Toggle Labels')" id="toggleLabels" onclick="$('#labels').fadeToggle()">Labels</li>
           <li onmouseover="tip('Toggle Icons')" id="toggleIcons" onclick="$('#icons').fadeToggle()">Icons</li>
         </ul>
@@ -426,6 +427,30 @@
             </td>
             <td>
               <output id="swampinessOutput">10</output>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <i onmouseover="tip('Unlock to allow option randomization on new map generation')" data-locked=1 id="lockLandMonsterInput" class="icon-lock"></i>
+            </td>
+            <td onmouseover="tip('Define the amount of lands monsters. Increase to see more land monsters')">Land Monster Amount</td>
+            <td>
+              <input id="landMonsterInput" type="range" min="0" max="100" value="10">
+            </td>
+            <td>
+              <output id="landMonsterOutput">10</output>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <i onmouseover="tip('Unlock to allow option randomization on new map generation')" data-locked=1 id="lockSeaMonsterInput" class="icon-lock"></i>
+            </td>
+            <td onmouseover="tip('Define the amount of sea monsters. Increase to see more sea monsters')">Sea Monster Amount</td>
+            <td>
+              <input id="seaMonsterInput" type="range" min="0" max="100" value="10">
+            </td>
+            <td>
+              <output id="seaMonsterOutput">10</output>
             </td>
           </tr>
           <tr>
