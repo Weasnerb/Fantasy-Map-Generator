@@ -4821,7 +4821,7 @@ function fantasyMap() {
 
         dragonCount++;
 
-      } else if (height > 0.2) {
+      } else if (height > 0.5) {
         // troll icon
         if (trollCount === (101 - landMonsterInput.value) && landMonsterInput.value != 0) {
           if (land[i].ctype !== 1) {
