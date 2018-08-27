@@ -1,13 +1,13 @@
 const { dialog } = require('electron');
+const { getAboutWindow } = require('./aboutWindow');
 
-
-exports.getTemplate = function (win) {
+exports.getTemplate = function (mainWindow, newWindow) {
   return [{
     label: 'File',
     submenu: [{
       label: 'New Map',
       click: () => {
-        win.webContents.executeJavaScript('document.getElementById(\'randomMap\').click();', true);
+        mainWindow.webContents.executeJavaScript('document.getElementById(\'randomMap\').click();', true);
       },
     }, {
       type: 'separator',
@@ -16,23 +16,23 @@ exports.getTemplate = function (win) {
       submenu: [{
         label: 'PNG',
         click: () => {
-          win.webContents.executeJavaScript('document.getElementById(\'savePNG\').click();', true);
+          mainWindow.webContents.executeJavaScript('document.getElementById(\'savePNG\').click();', true);
         },
       }, {
         label: 'SVG',
         click: () => {
-          win.webContents.executeJavaScript('document.getElementById(\'saveSVG\').click();', true);
+          mainWindow.webContents.executeJavaScript('document.getElementById(\'saveSVG\').click();', true);
         },
       }, {
         label: 'Map',
         click: () => {
-          win.webContents.executeJavaScript('document.getElementById(\'saveMap\').click();', true);
+          mainWindow.webContents.executeJavaScript('document.getElementById(\'saveMap\').click();', true);
         },
       }],
     }, {
       label: 'Load File',
       click: () => {
-        win.webContents.executeJavaScript('document.getElementById(\'mapToLoad\').click();', true);
+        mainWindow.webContents.executeJavaScript('document.getElementById(\'mapToLoad\').click();', true);
       },
     }],
   }, {
@@ -40,7 +40,7 @@ exports.getTemplate = function (win) {
     submenu: [{
       label: 'Reset Zoom',
       click: () => {
-        win.webContents.executeJavaScript('document.getElementById(\'zoomReset\').click();', true);
+        mainWindow.webContents.executeJavaScript('document.getElementById(\'zoomReset\').click();', true);
       },
     }],
   }, {
@@ -48,7 +48,8 @@ exports.getTemplate = function (win) {
     submenu: [{
       label: 'About',
       click: () => {
-        dialog.showMessageBox({ message: 'I am About', buttons: ['OK'] });
+        // dialog.showMessageBox({ message: 'I am About', buttons: ['OK'] });
+        getAboutWindow(newWindow);
       },
     }],
   }];

@@ -10,6 +10,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let newWindow;
 
 // This method will be called when Electron has finished
 const createWindow = () => {
@@ -40,7 +41,7 @@ const createWindow = () => {
 app.on('ready', () => {
   // const menu = Menu.buildFromTemplate(menuTemplate.getTemplate);
   createWindow();
-  const menu = Menu.buildFromTemplate(getTemplate(mainWindow));
+  const menu = Menu.buildFromTemplate(getTemplate(mainWindow, newWindow));
   Menu.setApplicationMenu(menu);
 });
 
