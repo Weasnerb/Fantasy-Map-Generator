@@ -7028,24 +7028,6 @@ function fantasyMap() {
   // support save options
   $('#saveDropdown > div').click(function () {
     const id = this.id;
-    const dns_allow_popup_message = localStorage.getItem('dns_allow_popup_message');
-    if (!dns_allow_popup_message) {
-      let message = 'Generator uses pop-up window to download files. ';
-      message += 'Please ensure your browser does not block popups. ';
-      message += 'Please check browser settings and turn off adBlocker if it is enabled';
-      alertMessage.innerHTML = message;
-      $('#alert').dialog({
-        title: 'File saver. Please enable popups!',
-        buttons: {
-          "Don't show again": function () {
-            localStorage.setItem('dns_allow_popup_message', true);
-            $(this).dialog('close');
-          },
-          Close() { $(this).dialog('close'); },
-        },
-        position: { my: 'center', at: 'center', of: 'svg' },
-      });
-    }
     if (id === 'saveMap') { saveMap(); }
     if (id === 'saveSVG') { saveAsImage('svg'); }
     if (id === 'savePNG') { saveAsImage('png'); }

@@ -1,6 +1,6 @@
 import { app, Menu, shell, BrowserWindow } from 'electron';
 
-const { getTemplate } = require('./js/menu-template');
+const { getTemplate } = require('./menu-template');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -52,14 +52,12 @@ function getAboutWindow() {
   });
 
   newWindow.webContents.on('will-navigate', (e, url) => {
-    console.log(url);
     e.preventDefault();
     shell.openExternal(url);
   });
 
   newWindow.setMenu(null);
   newWindow.loadURL(`file://${__dirname}/about.html`);
-  console.log(__dirname);
   newWindow.on('closed', () => { newWindow = null; });
 }
 

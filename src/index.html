@@ -149,7 +149,6 @@
   <div id="optionsContainer" class="hidden">
     <div id="collapsible">
       <button id="optionsTrigger" onmouseover="tip('Click to toggle options')" class="options icon-right-open glow"></button>
-      <!--<button id="regenerate" onmouseover="tip('Click to generate a new map')" class="options">New Map!</button>-->
     </div>
     <div id="options">
       <div class="drag-trigger" onmouseover="tip('Drag to move options pane')"></div>
@@ -158,14 +157,12 @@
         <button id="styleTab" onmouseover="tip('Click to style menu')" class="options">Style</button>
         <button id="optionsTab" onmouseover="tip('Click to change generation options')" class="options">Options</button>
         <button id="customizeTab" onmouseover="tip('Click to open customization menu')" class="options">Customize</button>
-        <button id="aboutTab" onmouseover="tip('Click to see Generator info')" class="options">?</button>
       </div>
       <div id="layoutContent" class="tabcontent">
         <p style="display: inline-block;">Select preset:</p>
         <select id="layoutPreset">
           <option value="layoutPolitical" selected>Political map</option>
           <option value="layoutCultural">Cultural map</option>
-          <!-- <option value="layoutEconomical">Economical map</option> -->
           <option value="layoutHeightmap">Heightmap</option>
           <option value="layoutLandmass">Pure landmass</option>
         </select>
@@ -555,18 +552,6 @@
             Burg: <span id="infoBurg">n/a</span>
           </div>
         </div>
-      </div>
-      <div id="aboutContent" class="tabcontent">
-        <p><a href="https://github.com/Azgaar/Fantasy-Map-Generator" target="_blank">Fantasy Map Generator</a> is an <a href="https://github.com/Azgaar/Fantasy-Map-Generator/blob/master/LICENSE" target="_blank">open source</a> tool which procedurally generates fantasy maps. You may use auto-generated maps as they are, edit them or even create a map from scratch. Check out the <a href="https://github.com/Azgaar/Fantasy-Map-Generator/wiki/Quick-Start-Tutorial" target="_blank">quick start tutorial</a> and <a href="https://github.com/Azgaar/Fantasy-Map-Generator/wiki" target="_blank">project wiki</a> for guidance. Join our <a href="https://www.reddit.com/r/FantasyMapGenerator/" target="_blank">Reddit Community</a> if you have questions, need any help, have a suggestion or just want to share a created map.</p>
-        <p>The project is under active development. For older versions see the <a href="https://github.com/Azgaar/Fantasy-Map-Generator/wiki/Changelog" target="_blank">changelog</a>. Some details are covered in my <a href="https://azgaar.wordpress.com/" target="_blank">blog</a>. To track the current progress see the <a href="https://trello.com/b/7x832DG4/fantasy-map-generator" target="_blank">devboard</a>.</p>
-        <p>Please report bugs <a href="https://github.com/Azgaar/Fantasy-Map-Generator/issues" target="_blank">here</a>. You may also <a href="mailto:maxganiev@yandex.ru" target="_blank">send me</a> an email.</p>
-        <ul class="share-buttons">
-          <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fazgaar.github.io%2FFantasy-Map-Generator%2F&quote=" onmouseover="tip('Share on Facebook')" target="_blank"><img alt="Share on Facebook" src="images/Facebook.png" /></a></li>
-          <li><a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fazgaar.github.io%2FFantasy-Map-Generator&text=%23FantasyMapGenerator%0A%0Ahttps%3A//azgaar.github.io/Fantasy-Map-Generator" target="_blank" onmouseover="tip('Tweet')"><img alt="Tweet" src="images/Twitter.png" /></a></li>
-          <li><a href="http://www.tumblr.com/share?v=3&u=https%3A%2F%2Fazgaar.github.io%2FFantasy-Map-Generator" target="_blank" onmouseover="tip('Post to Tumblr')"><img alt="Post to Tumblr" src="images/Tumblr.png" /></a></li>
-          <li><a href="http://pinterest.com/pin/create/button/?url=https%3A%2F%2Fazgaar.github.io%2FFantasy-Map-Generator" target="_blank" onmouseover="tip('Pin it')"><img alt="Pin it" src="images/Pinterest.png" /></a></li>
-          <li><a href="http://www.reddit.com/submit?url=https%3A%2F%2Fazgaar.github.io%2FFantasy-Map-Generator" target="_blank" onmouseover="tip('Submit to Reddit')"><img alt="Submit to Reddit" src="images/Reddit.png" /></a></li>
-        </ul>
       </div>
       <div id="sticked" style="display: none">
         <button id="randomMap" onmouseover="tip('Generate a new random map based on options set (F2). May take about 1 minute')" class="options">New Map</button>
