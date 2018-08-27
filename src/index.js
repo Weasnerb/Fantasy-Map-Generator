@@ -1,4 +1,4 @@
-import { app, Menu, BrowserWindow } from 'electron';
+import { app, Menu, shell, BrowserWindow } from 'electron';
 
 const { getTemplate } = require('./js/menu-template');
 
@@ -10,7 +10,6 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-let newWindow;
 
 // This method will be called when Electron has finished
 const createWindow = () => {
@@ -35,13 +34,41 @@ const createWindow = () => {
     mainWindow = null;
   });
 };
-// initialization and is ready to create browser windows.
+
+let newWindow = null;
+function getAboutWindow() {
+  if (newWindow) {
+    newWindow.focus();
+    return;
+  }
+
+  newWindow = new BrowserWindow({
+    height: 400,
+    width: 400,
+    title: 'About',
+    resizable: false,
+    minimizable: false,
+    fullscreenable: false,
+  });
+
+  newWindow.webContents.on('will-navigate', (e, url) => {
+    console.log(url);
+    e.preventDefault();
+    shell.openExternal(url);
+  });
+
+  newWindow.setMenu(null);
+  newWindow.loadURL(`file://${__dirname}/about.html`);
+  console.log(__dirname);
+  newWindow.on('closed', () => { newWindow = null; });
+}
+
 
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   // const menu = Menu.buildFromTemplate(menuTemplate.getTemplate);
   createWindow();
-  const menu = Menu.buildFromTemplate(getTemplate(mainWindow, newWindow));
+  const menu = Menu.buildFromTemplate(getTemplate(mainWindow, getAboutWindow));
   Menu.setApplicationMenu(menu);
 });
 

@@ -1,6 +1,6 @@
 const { BrowserWindow } = require('electron');
 
-exports.getAboutWindow = function (newWindow) {
+exports.getAboutWindow = function getAboutWindow(newWindow) {
   if (newWindow) {
     newWindow.focus();
     return;

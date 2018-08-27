@@ -1,7 +1,7 @@
 const { dialog } = require('electron');
 const { getAboutWindow } = require('./aboutWindow');
 
-exports.getTemplate = function (mainWindow, newWindow) {
+exports.getTemplate = function (mainWindow, getNewWindow) {
   return [{
     label: 'File',
     submenu: [{
@@ -49,7 +49,7 @@ exports.getTemplate = function (mainWindow, newWindow) {
       label: 'About',
       click: () => {
         // dialog.showMessageBox({ message: 'I am About', buttons: ['OK'] });
-        getAboutWindow(newWindow);
+        getNewWindow();
       },
     }],
   }];
