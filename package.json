@@ -1,8 +1,8 @@
 {
   "name": "fantasy-map-generator",
-  "productName": "fantasy-map-generator",
+  "productName": "Azgaar's Fantasy Map Generator",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Fantasy Map Generator!",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -29,7 +29,8 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "yarn"
+        "packageManager": "yarn",
+        "icon": "src/images/icon/icon.icns"
       },
       "electronWinstallerConfig": {
         "name": "fantasy_map_generator"
