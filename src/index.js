@@ -18,7 +18,7 @@ const createWindow = () => {
     width: 1920 / 2,
     height: 1080 / 2,
     title: "Azgaar's Fantasy Map Generator",
-    icon: __dirname +  '/images/icon/png/512x512.png'
+    icon: __dirname +  '/images/icon/png/1024x1024.png'
   });
 
   // and load the index.html of the app.

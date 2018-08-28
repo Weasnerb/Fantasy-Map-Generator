@@ -30,10 +30,11 @@
       },
       "electronPackagerConfig": {
         "packageManager": "yarn",
-        "icon": "src/images/icon/"
+        "icon": "src/images/icon/mac/icon.icns"
       },
       "electronWinstallerConfig": {
-        "name": "fantasy_map_generator"
+        "name": "fantasy_map_generator",
+        "icon": "src/images/icon/win/icon.ico"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
