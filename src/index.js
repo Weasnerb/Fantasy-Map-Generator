@@ -18,13 +18,14 @@ const createWindow = () => {
     width: 1920 / 2,
     height: 1080 / 2,
     title: "Azgaar's Fantasy Map Generator",
+    icon: __dirname +  '/images/icon/png/1024x1024.png'
   });
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
